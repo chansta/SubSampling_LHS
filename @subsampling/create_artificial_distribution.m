@@ -42,9 +42,6 @@ for s = 1 : obj.S
             end
         end
     end
-    if any( isnan( artX( : , s ) ) )
-        error();
-    end
 end
 % Create a column vector to emphasize it should not be used as paired
 % values for estimation

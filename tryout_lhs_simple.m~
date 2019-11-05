@@ -1,0 +1,33 @@
+%% LHS simulation
+clear all
+clc
+
+%% Check for reconstruction of the variable
+type = 'shifting';
+S = 30;
+M = 5;
+a_l = -8;
+a_u =  8;
+% Create object
+obj = subsampling( type , S , M , a_l , a_u );
+% Create boundaries
+c_s = create_boundaries( obj );
+%% DGP and discretization
+rng( 100 );
+N = 1000;
+MC = 1000;
+X = randn( N , 1 ) * 2;
+eps = randn( N , M );
+Y = 0.5 * repmat( X , { + eps;
+Y_s = discretize_rv( obj , Y );
+
+%% Create artificial distribution
+artY = create_artificial_distribution( obj , Y_s );
+% Create the working sample
+Y_ws = create_working_sample( obj, Y_s , artY );
+
+%% Estimation
+b = lscov( [ ones( N , 1 ) , X ] , Y_ws );
+
+
+

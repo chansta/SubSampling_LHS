@@ -20,10 +20,10 @@ for s = 1 : obj.S
             X_ws( log_ID , s ) = cond_avg;
         end
     end
-    if any( isnan( X_ws( : , s ) ) )
-        error();
-    end
 end
 
+X_ws = X_ws( : );
+% Remove the NaNs if added
+X_ws( end - obj.added_nan + 1 : end ) = [];
 
 end
