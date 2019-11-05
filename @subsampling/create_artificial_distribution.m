@@ -34,7 +34,7 @@ for s = 1 : obj.S
                 % Create a vector for uniform probabilities
                 rand_unif = NaN( Ns , 1 );
                 % Fix the random seed in order to replicate
-                rng( obj.seed + s * m );
+                %rng( obj.seed + s * m );
                 rand_unif( log_ID ) = rand( n_a , 1 );
                 for i = 1 : num_pot_z_b
                     artX( log_ID & ( rand_unif >= cum_prob( i ) & rand_unif <= cum_prob( i + 1 ) ) , s ) = potential_z_b( i );
