@@ -8,6 +8,7 @@ Ns = size( X_s , 1 );
 artX = NaN( Ns , obj.S );
 
 % Brute force version
+ct = 1;
 for s = 1 : obj.S
     for m = 1 : obj.M
         log_ID = X_s( : , s ) == obj.z_s( s , m );
@@ -38,11 +39,12 @@ for s = 1 : obj.S
                 % Create a vector for uniform probabilities
                 rand_unif = NaN( Ns , 1 );
                 % Fix the random seed in order to replicate
-                %rng( obj.seed + s * m );
+                rng( obj.seed + ct );
                 rand_unif( log_ID ) = rand( n_a , 1 );
                 for i = 1 : num_pot_z_b
                     artX( log_ID & ( rand_unif >= cum_prob( i ) & rand_unif <= cum_prob( i + 1 ) ) , s ) = potential_z_b( i );
                 end
+                ct = ct + 1;
             end
         end
     end
