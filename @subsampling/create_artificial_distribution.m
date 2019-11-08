@@ -21,12 +21,16 @@ for s = 1 : obj.S
             potential_z_b = obj.z_b( bounds( 1 ) <= obj.z_b & bounds( 2 ) >= obj.z_b );
             % Number of actual working sample values
             num_pot_z_b = numel( potential_z_b );
-            % Identify the observed values in the subsample
+            
+            % Identify the `directly transferable' observations in the subsample
             if num_pot_z_b == 1
                 % If only one working sample value then put that value into
                 % the artificial random variable
                 artX( log_ID , s ) = potential_z_b;
-            else
+                
+            elseif ~strcmpi( obj.type , 'magnifying' )
+            % this way we do not add `non-directly transferable' observations
+            
                 % Uniform probabilities for each potential mid value
                 prob_u = 1 ./ num_pot_z_b;
                 % Cummulative probabilities for easier classification

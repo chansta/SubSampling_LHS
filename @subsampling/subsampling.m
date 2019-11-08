@@ -19,11 +19,11 @@ classdef subsampling < handle
         % Boundary values for each sub-samples
         c_s 
     end
-    properties ( Access = private )
+    properties %( Access = private )
         seed = 1000;
         added_nan = 0;
     end
-    properties ( Access = private )
+    properties %( Access = private )
         % Boundary values for working sample
         c_b
         % Mid values for sub-samples
